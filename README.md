@@ -31,9 +31,9 @@ Steps:
     Check the installation:
            $ terraform -v
            
-    2.  Download/clone this repository in the path: https://github.com/basilj007/Rea-Work.git to your local machine.
+    2.  Download/clone this repository in the path: https://github.com/basilj007/REA-Work.git to your local machine.
   
-           $ git clone https://github.com/basilj007/Rea-Work.git
+           $ git clone https://github.com/basilj007/REA-Work.git
            
     3.  Move into the downloaded/cloned repository. This directory contains three main files; two terraform file and one userdata script file:
     
