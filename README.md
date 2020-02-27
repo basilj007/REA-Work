@@ -35,13 +35,27 @@ Steps:
   
            $ git clone https://github.com/basilj007/REA-Work.git
            
-    3.  Move into the downloaded/cloned repository. This directory contains three main files; two terraform file and one userdata script file:
+    3.  Move into the downloaded/cloned repository. This directory contains 'eight' main files; 'seven' terraform file and one userdata script file:
     
-           a). infra.tf: The whole infra-structure is written in this single file, including creation of VPC, ELB, ASG etc.
+           a). provider.tf: Details of resource provider, in this case it is AWS. Update IAM user's Access and Secret keys in provider.tf.
            
-           b). provider.tf: Details of resource provider, in this case it is AWS. Update IAM user's Access and Secret keys in provider.tf.
-           
-           c). install_nginx.sh: Contains the user_data, to install the needed packages and set up nginx.conf file for our need You can add this inside the 'infra.tf' file under the 'user_data' module.
+           b). vpc.tf: Contains the details of creating a VPC along with subnets, route tables and internet gateway.
+
+	   c). secgrp.tf: Contains creation steps for a new security group and its inbound and outbound traffic, which will allow http connections to our webservers/instances.
+  	   
+	   d). elb.tf: Contains the details for creating an ELB (Elastic Load Balancer).
+
+	   e). launchconfig.tf: Contains all instance settings to apply to each new launched by Auto Scaling Group instance.
+
+	   f). asg.tf: Contains the details of Auto Scaling Group. The ASG configuration:
+
+                • There will be minimum one instance to serve the traffic
+    		    • Auto Scaling Group will be launched with 2 instances and put each of them in separate Availability Zones in different Subnets
+    		    • Auto Scaling Group will get information about instance availability from the ELB
+    		    • Set up collection for some Cloud Watch metrics to monitor our Auto Scaling Group state
+   		        • Each instance launched from this Auto Scaling Group will have Name tag set to web 
+
+           g). install_nginx.sh: Contains the user_data, to install the needed packages and set up nginx.conf file for our need You can add this inside the 'launchconfig.tf' file under the 'user_data' module.
 
     4.  Run command ‘terraform init’: The ‘terraform init‘ command will automatically download and install any Provider binary for the providers to use within the configuration, whether the provider is AWS or Google.
        
@@ -57,4 +71,4 @@ Steps:
     
 Summary:
 
-    We have installed Terraform, created an Elastic Load Balancer and Auto Scaling Group in a VPC with 2 webservers always up providing 99.9% uptime.
+    From this documentation you’ve set up dynamic Auto Scaling Group and Load Balancer to distribute traffic to your instances in several Availability Zones.
