@@ -37,25 +37,25 @@ Steps:
            
     3.  Move into the downloaded/cloned repository. This directory contains 'eight' main files; 'seven' terraform file and one userdata script file:
     
-           a). provider.tf: Details of resource provider, in this case it is AWS. Update IAM user's Access and Secret keys in provider.tf.
+		a). provider.tf: Details of resource provider, in this case it is AWS. Update IAM user's Access and Secret keys in provider.tf.
            
-           b). vpc.tf: Contains the details of creating a VPC along with subnets, route tables and internet gateway.
+		b). vpc.tf: Contains the details of creating a VPC along with subnets, route tables and internet gateway.
 
-	   c). secgrp.tf: Contains creation steps for a new security group and its inbound and outbound traffic, which will allow http connections to our webservers/instances.
+		c). secgrp.tf: Contains creation steps for a new security group and its inbound and outbound traffic, which will allow http connections to our webservers/instances.
   	   
-	   d). elb.tf: Contains the details for creating an ELB (Elastic Load Balancer).
+		d). elb.tf: Contains the details for creating an ELB (Elastic Load Balancer).
 
-	   e). launchconfig.tf: Contains all instance settings to apply to each new launched by Auto Scaling Group instance.
+		e). launchconfig.tf: Contains all instance settings to apply to each new launched by Auto Scaling Group instance.
 
-	   f). asg.tf: Contains the details of Auto Scaling Group. The ASG configuration:
-
-                • There will be minimum one instance to serve the traffic
-    		    • Auto Scaling Group will be launched with 2 instances and put each of them in separate Availability Zones in different Subnets
-    		    • Auto Scaling Group will get information about instance availability from the ELB
-    		    • Set up collection for some Cloud Watch metrics to monitor our Auto Scaling Group state
-   		        • Each instance launched from this Auto Scaling Group will have Name tag set to web 
-
-           g). install_nginx.sh: Contains the user_data, to install the needed packages and set up nginx.conf file for our need You can add this inside the 'launchconfig.tf' file under the 'user_data' module.
+		f). asg.tf: Contains the details of Auto Scaling Group. The ASG configuration:
+	   
+		    • There will be minimum one instance to serve the traffic
+		    • Auto Scaling Group will be launched with 2 instances and put each of them in separate Availability Zones in different Subnets
+		    • Auto Scaling Group will get information about instance availability from the ELB
+		    • Set up collection for some Cloud Watch metrics to monitor our Auto Scaling Group state
+		    • Each instance launched from this Auto Scaling Group will have Name tag set to web 
+		    
+		g). install_nginx.sh: Contains the user_data, to install the needed packages and set up nginx.conf file for our need You can add this inside the 'launchconfig.tf' file under the 'user_data' module.
 
     4.  Run command ‘terraform init’: The ‘terraform init‘ command will automatically download and install any Provider binary for the providers to use within the configuration, whether the provider is AWS or Google.
        
